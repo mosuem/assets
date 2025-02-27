@@ -2,4 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-export 'src/assets.dart';
+import 'dart:typed_data';
+
+external Future<Uint8List> loadAssetBytes(String key, {required bool fresh});
+external Future<String> loadAssetString(String key, {required bool fresh});
