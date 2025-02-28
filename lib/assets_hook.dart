@@ -1,1 +1,1 @@
-export 'src/assets_hook.dart';
+export 'src/hook/assets_build.dart';

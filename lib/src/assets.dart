@@ -6,8 +6,8 @@ import 'dart:typed_data' show Uint8List;
 
 import 'package:meta/meta.dart' show RecordUse, mustBeConst;
 
-import 'assets_hook.dart' show AssetBuilder;
 import 'assets_internal.dart';
+import 'hook/assets_build.dart' show AssetBuilder;
 
 abstract class Asset<T> {
   final String key;

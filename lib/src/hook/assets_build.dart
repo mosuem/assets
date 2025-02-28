@@ -1,13 +1,13 @@
 import 'package:logging/logging.dart' show Logger;
 import 'package:native_assets_cli/data_assets.dart';
 
-import 'assets.dart';
+import '../assets.dart';
 
 class AssetBuilder {
   final Map<String, Uri> stringFiles;
   final Map<String, Uri> byteFiles;
 
-  AssetBuilder({required this.stringFiles, required this.byteFiles});
+  const AssetBuilder({required this.stringFiles, required this.byteFiles});
 
   AssetBuilder.byteFile(String name, Uri file)
     : byteFiles = {name: file},
@@ -17,11 +17,15 @@ class AssetBuilder {
     : byteFiles = {},
       stringFiles = {name: file};
 
+  AssetBuilder.byteFiles(this.byteFiles) : stringFiles = {};
+
+  AssetBuilder.stringFiles(this.stringFiles) : byteFiles = {};
+
   Future<void> run({
     required BuildInput input,
     required BuildOutputBuilder output,
-    required Logger? logger,
-    String? linkInPackage,
+    Logger? logger,
+    String? linkInPackage = 'assets',
   }) async {
     output.assets.data.addAll(
       [
@@ -42,6 +46,7 @@ class AssetBuilder {
           package: input.packageName,
         ),
       ),
+      linkInPackage: linkInPackage,
     );
   }
 
