@@ -6,6 +6,7 @@ import 'dart:typed_data' show Uint8List;
 
 import 'package:meta/meta.dart' show RecordUse, mustBeConst;
 
+import 'assets_hook.dart' show AssetBuilder;
 import 'assets_internal.dart';
 
 abstract class Asset<T> {
@@ -14,10 +15,7 @@ abstract class Asset<T> {
   const Asset(this.key);
 
   /// Load the asset asynchronously.
-  ///
-  /// By default, the assets are cached to improve performance. This can be
-  /// overriden by requesting a [fresh] asset.
-  Future<T> load({bool fresh = false});
+  Future<T> load();
 }
 
 @RecordUse()
@@ -27,8 +25,8 @@ class StringAsset extends Asset<String> {
   const StringAsset(@mustBeConst super.key);
 
   @override
-  Future<String> load({bool fresh = false}) =>
-      loadAssetString('$uniquePrefix:$key', fresh: fresh);
+  Future<String> load() =>
+      loadAssetString(AssetBuilder.assetNameMangler<StringAsset>(key));
 }
 
 @RecordUse()
@@ -38,6 +36,6 @@ class ByteAsset extends Asset<Uint8List> {
   const ByteAsset(@mustBeConst super.key);
 
   @override
-  Future<Uint8List> load({bool fresh = false}) =>
-      loadAssetBytes('$uniquePrefix:$key', fresh: fresh);
+  Future<Uint8List> load() =>
+      loadAssetBytes(AssetBuilder.assetNameMangler<ByteAsset>(key));
 }

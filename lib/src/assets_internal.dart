@@ -4,5 +4,5 @@
 
 import 'dart:typed_data';
 
-external Future<Uint8List> loadAssetBytes(String key, {required bool fresh});
-external Future<String> loadAssetString(String key, {required bool fresh});
+external Future<Uint8List> loadAssetBytes(String key);
+external Future<String> loadAssetString(String key);
